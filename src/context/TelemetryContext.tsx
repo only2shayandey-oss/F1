@@ -5,7 +5,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-export type ScreenId = 'cockpit' | 'aero' | 'powertrain' | 'strategy' | 'analysis' | 'presets';
+export type ScreenId = 'cockpit' | 'aero' | 'powertrain' | 'strategy' | 'presets';
 
 export type ERSMode = 'QUALIFYING' | 'OVERTAKE' | 'BALANCED' | 'RECHARGE';
 export type TireCompound = 'SOFT' | 'MEDIUM' | 'HARD';

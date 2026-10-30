@@ -2,60 +2,192 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@layer base {
-  :root {
-    --font-display: 'Space Grotesk', -apple-system, sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-    --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
-  }
-
-  body {
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .font-display {
-    font-family: var(--font-display);
-  }
-
-  .font-mono {
-    font-family: var(--font-mono);
-  }
-
-  .font-sans {
-    font-family: var(--font-sans);
-  }
+* {
+  box-sizing: border-box;
 }
 
-/* Custom telemetry glow and scanline utilities */
-.telemetry-glow {
-  box-shadow: 0 0 24px -4px rgba(0, 245, 212, 0.25);
-}
-
-.telemetry-glow-teal {
-  box-shadow: 0 0 24px -4px rgba(0, 161, 155, 0.35);
-}
-
-.titanium-border {
-  border-color: rgba(164, 179, 182, 0.16);
-}
-
-.dark .titanium-border {
-  border-color: rgba(164, 179, 182, 0.14);
-}
-
-/* Carbon subtle pattern for technical background */
-.carbon-grid {
-  background-size: 24px 24px;
+body {
+  background-color: #090a0f;
   background-image: 
-    linear-gradient(to right, rgba(164, 179, 182, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(164, 179, 182, 0.04) 1px, transparent 1px);
+    radial-gradient(at 0% 0%, #1e1b4b 0px, transparent 50%), 
+    radial-gradient(at 100% 100%, #3b0764 0px, transparent 50%);
+  min-height: 100vh;
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #f8fafc;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.dark .carbon-grid {
-  background-size: 24px 24px;
+/* Light mode override for body */
+html:not(.dark) body {
+  background-color: #f1f5f9;
   background-image: 
-    linear-gradient(to right, rgba(164, 179, 182, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(164, 179, 182, 0.035) 1px, transparent 1px);
+    radial-gradient(at 0% 0%, #e0e7ff 0px, transparent 50%), 
+    radial-gradient(at 100% 100%, #f3e8ff 0px, transparent 50%);
+  color: #0f172a;
+}
+
+/* ==========================================
+   UNIVERSAL COMPONENTS WITH HOVER & CLICK
+   ========================================== */
+
+/* Card: Smooth lift + border glow on hover */
+.card {
+  background: #12141c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px sm:padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+html:not(.dark) .card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(129, 140, 248, 0.4);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 25px rgba(129, 140, 248, 0.15);
+}
+
+html:not(.dark) .card:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 20px rgba(99, 102, 241, 0.12);
+}
+
+/* Navbar Layout */
+.navbar {
+  background: #12141c;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px 24px sm:padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+html:not(.dark) .navbar {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Pill Badge */
+.badge {
+  background: #1e1b4b;
+  color: #818cf8;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid rgba(129, 140, 248, 0.2);
+  margin-bottom: 12px;
+}
+
+html:not(.dark) .badge {
+  background: #e0e7ff;
+  color: #4338ca;
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+/* Form Inputs: Focus glow effect */
+input[type="text"], input[type="number"], select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  background: #090a0f;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #fff;
+  transition: all 0.2s ease;
+}
+
+html:not(.dark) input[type="text"], html:not(.dark) input[type="number"], html:not(.dark) select {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: #0f172a;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #818cf8;
+  box-shadow: 0 0 12px rgba(129, 140, 248, 0.3);
+}
+
+/* Action Buttons: Hover lift + Click shrink effect */
+.btn {
+  background: #f8fafc;
+  color: #090a0f;
+  border: none;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn:hover {
+  background: #cbd5e1;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.btn:active {
+  transform: scale(0.97) translateY(0);
+}
+
+.btn-primary {
+  background: #818cf8;
+  color: #090a0f;
+}
+
+.btn-primary:hover {
+  background: #a5b4fc;
+  box-shadow: 0 5px 20px rgba(129, 140, 248, 0.4);
+}
+
+.btn-boost {
+  background: linear-gradient(135deg, #00A19B, #00F5D4);
+  color: #090a0f;
+}
+
+.btn-boost:hover {
+  background: linear-gradient(135deg, #00F5D4, #7ef6ee);
+  box-shadow: 0 5px 20px rgba(0, 245, 212, 0.4);
+}
+
+/* Typography & Links */
+h1, h2, h3, h4 {
+  margin-top: 0;
+  letter-spacing: -0.5px;
+}
+
+p {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+html:not(.dark) p {
+  color: #64748b;
+}
+
+a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #fff;
 }
